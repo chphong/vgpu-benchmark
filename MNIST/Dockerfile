@@ -1,6 +1,9 @@
-FROM tensorflow/serving
+FROM tensorflow/tensorflow:latest-gpu
 
-ADD ./model /models/input_1
-ENV MODEL_NAME input_1
+RUN pip3 install py3nvml pynvml flask
+ADD ./model /model
+ADD main.py /main.py
 
 EXPOSE 8051
+
+ENTRYPOINT ["python3", "/main.py", "&"]
